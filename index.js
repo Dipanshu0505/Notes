@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 app.use(express.json())
+const cors = require('cors')
+app.use(express.static('dist'))
+
+app.use(cors())
 
 let notes = [
     {
@@ -44,12 +48,7 @@ let notes = [
   
     response.status(204).end()
   })
-  
-  const PORT = 3001
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
-
+ 
 
   app.post('/api/notes', (request, response) => {
     const maxId = notes.length > 0
@@ -62,4 +61,11 @@ let notes = [
     notes = notes.concat(note)
   
     response.json(note)
+  })
+
+
+ 
+  const PORT = 3001
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
   })
